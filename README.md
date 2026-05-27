@@ -1,5 +1,5 @@
 # sql-practice
-SQL practice solutions from HackerRank | Targeting Data Analyst roles | Updated daily
+SQL practice solutions from HackerRank |Notes| Targeting Data Analyst roles | Updated daily
 # SQL Practice — HackerRank
 
 ![SQL](https://img.shields.io/badge/SQL-Practice-blue)
