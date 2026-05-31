@@ -3,7 +3,7 @@
 ## What is a Database?
 A database is an organized collection of data stored and accessed electronically.
 
-*Structure:*
+**Structure:**
 SERVER
 ├── Database (Sales)
 │   ├── Schema (Orders)
