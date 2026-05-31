@@ -4,13 +4,13 @@
 A database is an organized collection of data stored and accessed electronically.
 
 **Structure:**
+```
 SERVER
 ├── Database (Sales)
 │   ├── Schema (Orders)
 │   └── Schema (Customers)
 └── Database (HR)
-
----
+```
 
 ## SQL vs NoSQL
 
