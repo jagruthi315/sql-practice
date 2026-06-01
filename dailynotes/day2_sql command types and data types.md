@@ -1,4 +1,4 @@
-#  Day 2 · SQL Command Types & Data Types
+#  Day 2 --> SQL Command Types & Data Types
 
 ## Why SQL?
 - **Talk to Data** — SQL lets you communicate with databases storing massive amounts of data
