@@ -1,4 +1,4 @@
-# Day 1 — Database Basics & Types
+# Day 1 --> Database Basics & Types
 
 ## What is a Database?
 A database is an organized collection of data stored and accessed electronically.
