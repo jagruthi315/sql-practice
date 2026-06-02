@@ -118,4 +118,43 @@ After this — the `students` table still exists, it's just empty.
 ---
 
 ## DROP vs TRUNCATE — The Difference That Always Gets Asked
+| | TRUNCATE | DROP |
+|---|---|---|
+| Removes data? | ✅ Yes | ✅ Yes |
+| Removes structure? | ❌ No | ✅ Yes |
+| Can be rolled back? | ❌ No | ❌ No |
+| Table still exists after? | ✅ Yes | ❌ No |
+
+> Simple way to remember — **TRUNCATE empties the table, DROP kills the table.**
+
+---
+
+## All 4 Together — Quick Recap
+
+```sql
+-- Create a fresh table
+CREATE TABLE students (id INT PRIMARY KEY, name VARCHAR(100), age INT);
+
+-- Add a new column to it
+ALTER TABLE students ADD email VARCHAR(100);
+
+-- Empty all data but keep the table
+TRUNCATE TABLE students;
+
+-- Delete the table completely
+DROP TABLE students;
+```
+
+---
+
+## The Mental Model 🧠
+CREATE  →  "Build the room"
+ALTER   →  "Renovate the room"
+TRUNCATE → "Clean out the room"
+DROP    →  "Demolish the room"
+
+---
+
+> All 4 are DDL commands — they deal with **structure**, not data.
+> None of them can be rolled back
 
