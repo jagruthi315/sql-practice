@@ -86,3 +86,36 @@ ALTER TABLE students DROP COLUMN email;
 > you're changing what fields exist on it.
 
 ---
+## DROP — Deleting Everything, No Going Back
+
+DROP deletes the **entire table** — the structure AND all the data inside it.
+It's permanent. No undo button.
+
+```sql
+DROP TABLE students;
+```
+
+You can also drop an entire database:
+```sql
+DROP DATABASE college;
+```
+
+> ⚠️ Use DROP carefully. Once you drop a table, it's gone — data, structure, everything.
+
+---
+
+## TRUNCATE — Empty the Table, Keep the Structure
+
+TRUNCATE removes **all the rows** from a table but keeps the table itself intact.
+It's like emptying a box but keeping the box.
+
+```sql
+TRUNCATE TABLE students;
+```
+
+After this — the `students` table still exists, it's just empty.
+
+---
+
+## DROP vs TRUNCATE — The Difference That Always Gets Asked
+
