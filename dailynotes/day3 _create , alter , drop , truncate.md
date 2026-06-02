@@ -27,3 +27,62 @@ CREATE TABLE students (
 - Once created, the table is empty — no data yet, just the structure
 
 ---
+
+## ALTER — Editing What Already Exists
+
+So you created a table but forgot to add an email column, or you want to change
+a column's data type. That's what ALTER is for — modifying an existing table.
+
+### Add a new column
+```sql
+ALTER TABLE students ADD email VARCHAR(100);
+```
+
+### Modify an existing column
+```sql
+ALTER TABLE students MODIFY age SMALLINT;
+```
+
+### Rename a column
+```sql
+ALTER TABLE students RENAME COLUMN city TO hometown;
+```
+
+### Drop a column
+```sql
+ALTER TABLE students DROP COLUMN email;
+```
+
+> Think of ALTER like editing a form template — you're not filling it,
+> you're changing what fields exist on it.
+
+---
+## ALTER — Editing What Already Exists
+
+So you created a table but forgot to add an email column, or you want to change
+a column's data type. That's what ALTER is for — modifying an existing table.
+
+### Add a new column
+```sql
+ALTER TABLE students ADD email VARCHAR(100);
+```
+
+### Modify an existing column
+```sql
+ALTER TABLE students MODIFY age SMALLINT;
+```
+
+### Rename a column
+```sql
+ALTER TABLE students RENAME COLUMN city TO hometown;
+```
+
+### Drop a column
+```sql
+ALTER TABLE students DROP COLUMN email;
+```
+
+> Think of ALTER like editing a form template — you're not filling it,
+> you're changing what fields exist on it.
+
+---
