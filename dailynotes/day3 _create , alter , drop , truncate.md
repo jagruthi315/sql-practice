@@ -1,4 +1,4 @@
-#Day 3 --> CREATE, ALTER, DROP, TRUNCATE
+## Day 3 --> CREATE, ALTER, DROP, TRUNCATE
 
 So today we go deeper into DDL commands — these are the commands that deal
 with the **structure** of your database, not the data inside it.
