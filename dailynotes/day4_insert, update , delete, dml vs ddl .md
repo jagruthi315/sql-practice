@@ -114,6 +114,28 @@ TRUNCATE TABLE students;
 > - TRUNCATE → full wipe (everything gone, no questions asked)
 
 ---
+## DDL vs DML — The Big Difference
+
+| | DDL | DML |
+|--|-----|-----|
+| Full form | Data Definition Language | Data Manipulation Language |
+| Works on | Tables / Columns (structure) | Rows (data) |
+| Commands | CREATE, ALTER, DROP, TRUNCATE | INSERT, UPDATE, DELETE |
+| Rollback | ❌ No | ✅ Yes |
+| Purpose | Design the database | Fill and manage the data |
+
+**DDL examples:**
+```sql
+CREATE TABLE students (...);   -- build structure
+ALTER TABLE students ADD age INT;  -- edit structure
+DROP TABLE students;           -- delete structure
+```
+
+**DML examples:**
+```sql
+INSERT INTO students VALUES (...);         -- add rows
+UPDATE students SET age = 20 WHERE id = 1; -- edit rows
+DELETE FROM students WHERE id = 2;         -- remove rows
 
 
 
