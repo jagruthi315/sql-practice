@@ -32,6 +32,88 @@ VALUES
 -- Shorthand (only if inserting all columns in order)
 INSERT INTO customers VALUES (3, 'Riya', 'Noida');
 ```
+## UPDATE — Changing Existing Data
+
+When data already exists but needs to be changed, use UPDATE.
+Real life example — a customer moved to another city.
+
+```sql
+-- Update a specific row
+UPDATE customers
+SET city = 'Bangalore'
+WHERE customer_id = 2;
+
+-- Update multiple columns at once
+UPDATE customers
+SET city = 'Delhi', phone = '9999999999'
+WHERE customer_id = 1;
+```
+
+> ⚠️ Always use WHERE with UPDATE.
+> Without WHERE — it updates **every single row** in the table. Classic mistake.
+
+```sql
+-- This updates ALL rows (probably not what you want!)
+UPDATE customers SET city = 'Delhi';
+```
 
 ---
+
+## DELETE — Removing Data
+
+When you want to remove specific rows from a table, use DELETE.
+
+```sql
+-- Delete a specific row
+DELETE FROM customers WHERE customer_id = 1;
+
+-- Delete multiple rows
+DELETE FROM customers WHERE city = 'Noida';
+```
+
+> ⚠️ Same rule — always use WHERE with DELETE.
+> Without WHERE — it deletes **every row** in the table.
+
+```sql
+-- This deletes ALL rows (dangerous!)
+DELETE FROM customers;
+```
+
+---
+
+## TRUNCATE — Full Wipe
+
+Removes ALL rows from a table instantly but keeps the structure.
+
+```sql
+TRUNCATE TABLE students;
+```
+
+**Important points:**
+- No WHERE clause allowed — can't delete specific rows
+- Faster than DELETE — doesn't go row by row, wipes everything at once
+- Cannot be rolled back — once done, data is gone permanently
+- Resets auto-increment — IDs start from 1 again after truncate
+
+---
+
+## TRUNCATE vs DELETE
+
+| Feature | TRUNCATE | DELETE |
+|---------|----------|--------|
+| Removes all rows | ✅ Yes | ✅ Yes |
+| Removes specific rows | ❌ No | ✅ Yes (with WHERE) |
+| Speed | ⚡ Fast | 🐢 Slow |
+| WHERE clause | ❌ Not allowed | ✅ Allowed |
+| Rollback | ❌ No | ✅ Yes |
+| Auto increment reset | ✅ Yes | ❌ No |
+| Type | DDL | DML |
+
+> Easy way to remember:
+> - DELETE → smart cleaning (you choose what goes)
+> - TRUNCATE → full wipe (everything gone, no questions asked)
+
+---
+
+
 
