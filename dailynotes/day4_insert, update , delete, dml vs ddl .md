@@ -22,9 +22,16 @@ VALUES
 (2, 'Priya', 'Mumbai');
 ```
 
+**Things to remember:**
+- Column names and values must match in the **same order**
+- If you're inserting values for ALL columns, you can skip column names
+- Text values go in **single quotes** `'like this'`
+- Numbers don't need quotes
 
+```sql
+-- Shorthand (only if inserting all columns in order)
+INSERT INTO customers VALUES (3, 'Riya', 'Noida');
 ```
 
 ---
 
-## 🧠 Memory Tricks
