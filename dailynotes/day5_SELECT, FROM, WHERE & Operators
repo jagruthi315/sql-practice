@@ -1,0 +1,210 @@
+# Day 5 --> SELECT, FROM, WHERE & Operators
+
+Today is all about asking questions to your database.
+This is DQL — Data Query Language, and honestly the most used thing in SQL.
+Every data job, every interview, every HackerRank question — it starts here.
+
+---
+
+## The Basic Structure
+
+```sql
+SELECT column_name
+FROM table_name
+WHERE condition;
+```
+
+| Keyword | What it does |
+|---------|--------------|
+| `SELECT` | What data do you want? (columns) |
+| `FROM` | From which table? |
+| `WHERE` | Apply conditions to filter data |
+
+```sql
+-- Select everything
+SELECT * FROM customer;
+
+-- Select specific columns
+SELECT customer_name, customer_city FROM customer;
+
+-- Select with a condition
+SELECT customer_name FROM customer WHERE customer_city = 'delhi';
+```
+
+---
+
+## Operators in WHERE
+
+### Comparison Operators
+
+| Operator | Meaning |
+|----------|---------|
+| `=` | Equal to |
+| `!=` or `<>` | Not equal to |
+| `<`, `>` | Less than, Greater than |
+| `<=`, `>=` | Less than or equal, Greater than or equal |
+
+```sql
+-- Not equal to
+SELECT customer_name FROM customer WHERE customer_city != 'delhi';
+
+-- Greater than
+SELECT * FROM employees WHERE salary > 50000;
+```
+
+---
+
+### AND / OR
+
+```sql
+-- AND: both conditions must be true
+SELECT customer_name FROM customer
+WHERE customer_city = 'delhi' AND customer_city = 'mumbai';
+
+-- OR: at least one condition must be true
+SELECT customer_name FROM customer
+WHERE customer_city = 'delhi' OR customer_city = 'mumbai';
+```
+
+---
+
+### NULL Handling — Important!
+
+> ⚠️ NULL means no value — it is NOT zero, NOT empty string
+> You CANNOT use = with NULL — it will return no results
+
+```sql
+-- ❌ WRONG — returns nothing
+SELECT customer_name FROM customer WHERE phone = NULL;
+
+-- ✅ CORRECT
+SELECT customer_name FROM customer WHERE phone IS NULL;
+
+-- ✅ Not null
+SELECT customer_name FROM customer WHERE phone IS NOT NULL;
+```
+
+---
+
+### IN — Match from a List
+
+Instead of writing multiple OR conditions, use IN.
+
+```sql
+-- Without IN (messy)
+WHERE city = 'Delhi' OR city = 'Mumbai' OR city = 'Noida'
+
+-- With IN (clean)
+WHERE city IN ('Delhi', 'Mumbai', 'Noida')
+```
+
+```sql
+-- Example
+SELECT customer_name FROM customer
+WHERE customer_city IN ('delhi', 'mumbai');
+
+-- NOT IN — exclude values
+SELECT * FROM students WHERE city NOT IN ('Delhi', 'Mumbai');
+```
+
+> Think of IN like a dropdown — "give me only these options"
+
+---
+
+### BETWEEN — Match within a Range
+
+Includes both the start and end values.
+
+```sql
+SELECT * FROM students WHERE marks BETWEEN 70 AND 85;
+
+-- Same as writing:
+WHERE marks >= 70 AND marks <= 85
+```
+
+Useful for score ranges, date ranges, salary ranges.
+
+---
+
+### LIKE — Pattern Matching
+
+Use when you don't know the exact value.
+Searches for a pattern in text.
+
+```sql
+SELECT column_name FROM table_name
+WHERE column LIKE pattern;
+```
+
+**Wildcards:**
+
+| Symbol | Meaning |
+|--------|---------|
+| `%` | Any number of characters |
+| `_` | Exactly one character |
+
+```sql
+-- Starts with 'A'
+WHERE name LIKE 'A%';
+
+-- Ends with 'a'
+WHERE name LIKE '%a';
+
+-- Contains 'ar' anywhere
+WHERE name LIKE '%ar%';
+
+-- Second letter is 'a'
+WHERE name LIKE '_a%';
+
+-- 5 letter name starting with R
+WHERE name LIKE 'R____';
+```
+
+> Think of LIKE like a search bar — "give me something similar"
+
+---
+
+### IN vs LIKE
+
+| Feature | IN | LIKE |
+|---------|----|----|
+| Use | Exact values | Pattern search |
+| Example | `'Delhi', 'Mumbai'` | `'A%'`, `'%a'` |
+| Works on | Fixed values | Partial matching |
+
+```sql
+-- Combined example
+SELECT name FROM employees
+WHERE city IN ('Delhi', 'Noida') AND name LIKE 'A%';
+-- Employees from Delhi/Noida whose name starts with A
+```
+
+---
+
+### CASE — If/Else Logic in SQL
+
+Like Python's if-else but inside a SQL query.
+
+```sql
+SELECT name,
+CASE
+    WHEN marks >= 90 THEN 'A'
+    WHEN marks >= 75 THEN 'B'
+    ELSE 'C'
+END AS grade
+FROM students;
+```
+
+Output:
+| name | grade |
+|------|-------|
+| Rahul | A |
+| Priya | B |
+| Ananya | C |
+
+Used for categorizing data, grading, conditional output.
+HackerRank loves CASE questions! 🔥
+
+---
+
+## 🧠 Memory Tricks
