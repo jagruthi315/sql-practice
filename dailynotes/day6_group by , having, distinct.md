@@ -115,3 +115,83 @@ From the example table:
 | UK | 750 | ❌ |
 
 ---
+## WHERE vs HAVING — The Most Important Difference
+
+This comes up in every interview and exam.
+
+| | WHERE | HAVING |
+|--|-------|--------|
+| Filters | Rows | Groups |
+| Used with | Any query | Only with GROUP BY |
+| Runs | Before grouping | After grouping |
+| Works with aggregate functions? | ❌ No | ✅ Yes |
+
+```sql
+-- WHERE filters BEFORE grouping
+-- Only considers rows where score > 400 first
+SELECT Country, SUM(score)
+FROM table
+WHERE score > 400
+GROUP BY Country
+HAVING SUM(score) > 800;
+
+-- Step 1 (WHERE): removes rows with score <= 400
+-- Maria (350) ❌ and Peter (0) ❌ removed first
+-- Step 2 (GROUP BY): groups remaining rows by country
+-- Step 3 (HAVING): keeps groups where SUM > 800
+```
+
+> Simple rule:
+> - Filter rows → WHERE (before grouping)
+> - Filter groups → HAVING (after grouping)
+
+---
+
+## Full Query Order — Always Remember This
+
+```sql
+SELECT column, aggregate_function(column)
+FROM table
+WHERE condition          -- filters rows BEFORE grouping
+GROUP BY column          -- groups the filtered rows
+HAVING condition         -- filters groups AFTER grouping
+ORDER BY column;         -- sorts final result
+```
+
+> SQL runs in this order internally:
+> FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+
+---
+
+## 🧠 Memory Tricks
+DISTINCT  → "show each value once, no repeats"
+GROUP BY  → "put same values together, then summarize"
+HAVING    → "WHERE but for groups"
+WHERE  = filter before  = works on rows
+HAVING = filter after   = works on groups
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+-- Unique values
+SELECT DISTINCT city FROM employees;
+
+-- Count per group
+SELECT city, COUNT(*) FROM employees GROUP BY city;
+
+-- Filter groups
+SELECT city, COUNT(*) FROM employees
+GROUP BY city
+HAVING COUNT(*) > 2;
+
+-- WHERE + GROUP BY + HAVING together
+SELECT city, AVG(salary)
+FROM employees
+WHERE age > 25
+GROUP BY city
+HAVING AVG(salary) > 50000;
+```
+
+---
