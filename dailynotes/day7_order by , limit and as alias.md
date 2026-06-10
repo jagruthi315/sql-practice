@@ -93,6 +93,102 @@ How it works:
 ```sql
 -- Instead of column name, use its position
 SELECT name, marks FROM students ORDER BY 2 DESC;
+
+
+## LIMIT — Control How Many Rows You Get
+
+LIMIT restricts how many rows are returned.
+Very useful for top N queries.
+
+```sql
+-- Get only 5 rows
+SELECT * FROM students LIMIT 5;
+
+-- Top 3 highest marks
+SELECT name, marks FROM students
+ORDER BY marks DESC
+LIMIT 3;
+```
+
+### OFFSET — Skip Rows (Pagination)
+
+```sql
+-- Skip first 5 rows, then get next 5
+SELECT * FROM students LIMIT 5 OFFSET 5;
+
+-- Page 1: LIMIT 5 OFFSET 0
+-- Page 2: LIMIT 5 OFFSET 5
+-- Page 3: LIMIT 5 OFFSET 10
+```
+
+> OFFSET is how apps show "page 1, page 2, page 3" of results.
+
+### Nested ORDER BY
+
+```sql
+-- Real example: top 5 employees per city by salary
+SELECT name, city, salary
+FROM employees
+ORDER BY city ASC, salary DESC
+LIMIT 5;
+```
+
+---
+
+## Putting It All Together
+
+```sql
+SELECT
+    name AS student_name,
+    marks AS total_marks
+FROM students
+WHERE marks > 50
+ORDER BY marks DESC
+LIMIT 10;
+```
+
+What this does step by step:
+1. FROM students — go to students table
+2. WHERE marks > 50 — keep only students with marks above 50
+3. ORDER BY marks DESC — sort highest marks first
+4. LIMIT 10 — show only top 10
+5. SELECT + AS — show name and marks with clean column names
+
+---
+
+## 🧠 Memory Tricks
+AS      → "call it this name instead"
+ORDER BY → "sort it this way"
+LIMIT   → "show me only this many"
+OFFSET  → "skip this many first"
+ASC  = A to Z, 1 to 9  (default)
+DESC = Z to A, 9 to 1
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+-- Alias
+SELECT AVG(salary) AS avg_salary FROM employees;
+
+-- Order ascending
+SELECT * FROM students ORDER BY marks ASC;
+
+-- Order descending
+SELECT * FROM students ORDER BY marks DESC;
+
+-- Multiple column sort
+SELECT * FROM employees ORDER BY city ASC, salary DESC;
+
+-- Limit results
+SELECT * FROM students ORDER BY marks DESC LIMIT 5;
+
+-- Pagination
+SELECT * FROM students LIMIT 10 OFFSET 20;
+```
+
+
 -- 2 means second column = marks
 ```
 
