@@ -188,10 +188,3 @@ SELECT * FROM students ORDER BY marks DESC LIMIT 5;
 SELECT * FROM students LIMIT 10 OFFSET 20;
 ```
 
-
--- 2 means second column = marks
-```
-
-> Not recommended for real code but sometimes seen in HackerRank.
-
----
