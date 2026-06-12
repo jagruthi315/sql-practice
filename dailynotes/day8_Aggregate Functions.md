@@ -109,6 +109,62 @@ WHERE employee_city IN ('Delhi', 'Mumbai');
 
 ---
 
+## Aggregate Functions + GROUP BY (connecting to Day 6)
+
+Aggregate functions become even more powerful when combined
+with GROUP BY:
+
+```sql
+-- Average salary per city
+SELECT employee_city, AVG(employee_salary)
+FROM employees
+GROUP BY employee_city;
+
+-- Highest salary per city, only show cities with > 2 employees
+SELECT employee_city, MAX(employee_salary)
+FROM employees
+GROUP BY employee_city
+HAVING COUNT(employee_id) > 2;
+```
+
+---
+
+## 🧠 Memory Tricks
+COUNT() → "how many?"
+
+SUM()   → "total of all"
+
+AVG()   → "average"
+
+MIN()   → "smallest"
+
+MAX()   → "biggest"
+All aggregate functions → many values IN, one value OUT
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+SELECT COUNT(*) FROM table;          -- total rows
+SELECT COUNT(column) FROM table;     -- non-null values only
+SELECT SUM(column) FROM table;       -- total sum
+SELECT AVG(column) FROM table;       -- average
+SELECT MIN(column) FROM table;       -- smallest value
+SELECT MAX(column) FROM table;       -- largest value
+
+-- with GROUP BY
+SELECT category, COUNT(*) FROM table GROUP BY category;
+```
+
+---
+
+## ⚠️ Common Mistakes to Avoid
+
+- `AVG()(column)` → wrong, extra brackets cause error
+- `COUNT(column)` skips NULL values, `COUNT(*)` doesn't
+- Aggregate functions need `GROUP BY` if mixed with non-aggregate columns
+
 ---
 
 
