@@ -163,4 +163,65 @@ Subquery inside subquery
 
 ---
 
+## Types of Subqueries
+
+| Type | Returns |
+|------|---------|
+| Single-row | One value |
+| Multi-row | Multiple values |
+| Correlated | Runs once for each row of the outer query |
+
+---
+
+## 🧠 Memory Tricks
+Subquery = "helper query"
+
+Inner query runs FIRST, outer query runs SECOND
+"greater than average"  → subquery
+
+"equal to maximum"       → subquery
+
+"in the list of..."      → subquery
+
+"exists in another table" → subquery
+
+---
+
+## 🎯 Final Decision Rule
+
+Ask yourself:
+1. Do I need a value from another query? → ✅ use subquery
+2. Is it an aggregate comparison (AVG, MAX, MIN)? → ✅ use subquery
+3. Can I write it directly with a simple WHERE? → ❌ don't use subquery
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+-- Aggregate comparison
+SELECT * FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- IN with subquery
+SELECT name FROM employees
+WHERE dept_id IN (SELECT dept_id FROM departments WHERE dept_name = 'IT');
+
+-- MAX/MIN comparison
+SELECT * FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees);
+
+-- EXISTS
+SELECT name FROM employees e
+WHERE EXISTS (SELECT 1 FROM departments d WHERE e.dept_id = d.dept_id);
+
+-- Nested subquery
+SELECT name FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+    WHERE dept_id IN (SELECT dept_id FROM departments WHERE location = 'Delhi')
+);
+```
+
+---
 
