@@ -52,3 +52,115 @@ WHERE employee_salary > (SELECT AVG(employee_salary) FROM employees);
 
 ---
 
+
+## When To Use a Subquery — Simple Signal
+
+If the question sounds like any of these, use a subquery:
+
+- "greater than **average**"
+- "equal to **maximum/minimum**"
+- "**in the list of** ..."
+- "**exists in** another table"
+
+---
+
+## Common Situations (with examples)
+
+### 1. Compare with an aggregate value
+
+"Employees with salary greater than average"
+
+```sql
+SELECT * FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+);
+```
+> You cannot do this without a subquery.
+
+---
+
+### 2. Match values from another table
+
+"Employees whose department is IT"
+
+```sql
+SELECT name FROM employees
+WHERE dept_id IN (
+    SELECT dept_id FROM departments WHERE dept_name = 'IT'
+);
+```
+
+---
+
+### 3. Find max/min related data
+
+"Employee with the highest salary"
+
+```sql
+SELECT * FROM employees
+WHERE salary = (
+    SELECT MAX(salary) FROM employees
+);
+```
+
+---
+
+### 4. Check existence — EXISTS
+
+```sql
+SELECT name FROM employees e
+WHERE EXISTS (
+    SELECT 1 FROM departments d
+    WHERE e.dept_id = d.dept_id
+);
+```
+
+---
+
+## When NOT to Use a Subquery
+
+Don't use a subquery if a simple query works fine.
+
+```sql
+-- No subquery needed here
+SELECT * FROM employees WHERE salary > 40000;
+```
+
+> Only use subqueries when you genuinely need a value
+> computed from another query.
+
+---
+
+## Can We Write a Query Inside a Subquery?
+
+✅ **YES** — subqueries can be nested multiple levels deep.
+
+```sql
+-- Subquery inside a subquery
+SELECT name FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+    WHERE dept_id IN (
+        SELECT dept_id FROM departments WHERE location = 'Delhi'
+    )
+);
+```
+
+**Levels of nesting:**
+Main Query
+
+↓
+
+Subquery
+
+↓
+
+Subquery inside subquery
+
+> SQL supports multiple levels of nesting,
+> but keep it simple in exams/interviews.
+
+---
+
+
