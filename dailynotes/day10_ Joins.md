@@ -9,26 +9,17 @@ JOINs bring them together.
 ---
 
 ## The Big Picture — Two Ways to Combine Tables
-Combine two tables?
 
-|
+When combining two tables you have two options:
 
-|
+| | SET Operators | JOINs |
+|--|--------------|-------|
+| Combines | Rows (vertically) | Columns (horizontally) |
+| Examples | UNION, INTERSECT, EXCEPT | INNER, LEFT, RIGHT, FULL |
+| Needs | Same number of columns | A key column |
 
-|           |
-
-ROWS        COLUMNS
-
-|           |
-
-SET OPS     JOINs
-
-(UNION,     (INNER, LEFT,
-
-INTERSECT,   RIGHT, FULL)
-
-EXCEPT)
-
+- Want to **stack rows**? → SET Operators
+- Want to **add columns**? → JOINs
 - **SET Operators** → stack tables **vertically** (add rows) — need same columns
 - **JOINs** → expand tables **horizontally** (add columns) — need a key column
 
