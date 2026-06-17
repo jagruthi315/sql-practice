@@ -165,3 +165,72 @@ EXCEPT     → Priya                         (in A but not B)
 
 ---
 
+## Real Life Examples
+
+```sql
+-- All employees from Delhi OR Mumbai (no duplicates)
+SELECT name FROM employees WHERE city = 'Delhi'
+UNION
+SELECT name FROM employees WHERE city = 'Mumbai';
+
+-- Customers who ordered in BOTH 2023 AND 2024
+SELECT customer_id FROM orders_2023
+INTERSECT
+SELECT customer_id FROM orders_2024;
+
+-- Customers who ordered in 2023 but NOT in 2024
+-- (lapsed customers — useful for marketing!)
+SELECT customer_id FROM orders_2023
+EXCEPT
+SELECT customer_id FROM orders_2024;
+```
+
+---
+
+## UNION vs UNION ALL — When to Use Which?
+
+| | UNION | UNION ALL |
+|--|-------|-----------|
+| Removes duplicates | ✅ Yes | ❌ No |
+| Speed | 🐢 Slower | ⚡ Faster |
+| Use when | duplicates possible | no duplicates / want all rows |
+
+---
+
+## 🧠 Memory Tricks
+UNION      → "combine, clean" (no duplicates)
+
+UNION ALL  → "combine, keep all" (with duplicates)
+
+INTERSECT  → "what's common?" (both lists)
+
+EXCEPT     → "what's only in A?" (A minus B)
+SET Operators = stacking rows vertically
+
+JOINs = adding columns horizontally
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+-- UNION (no duplicates)
+SELECT col FROM table_a
+UNION
+SELECT col FROM table_b;
+
+-- UNION ALL (keep duplicates)
+SELECT col FROM table_a
+UNION ALL
+SELECT col FROM table_b;
+
+-- INTERSECT (common rows only)
+SELECT col FROM table_a
+INTERSECT
+SELECT col FROM table_b;
+
+-- EXCEPT (in A but not B)
+SELECT col FROM table_a
+EXCEPT
+SELECT col FROM table_b;
+```
