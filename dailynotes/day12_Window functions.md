@@ -1,5 +1,5 @@
-# Day 12 · Window Functions
-### Week 3 — Day 2
+# Day 12--> Window Functions
+
 
 Window functions are one of the most powerful and most asked
 topics in SQL interviews. Today we level up! 🚀
