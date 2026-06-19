@@ -166,3 +166,130 @@ FROM employees;
 
 Each row shows the average salary of its city —
 without collapsing rows like GROUP BY would.
+
+## LAG() — Access Previous Row's Value
+
+LAG lets you look at the value from the previous row.
+Very useful for comparing current vs previous.
+
+```sql
+SELECT name, salary,
+    LAG(salary) OVER (ORDER BY id) AS prev_salary
+FROM employees;
+```
+name    salary   prev_salary
+
+Aman    50000    NULL        ← no previous row
+
+Riya    60000    50000
+
+Karan   45000    60000
+
+Sneha   70000    45000
+
+---
+
+## LEAD() — Access Next Row's Value
+
+Opposite of LAG — looks at the next row's value.
+
+```sql
+SELECT name, salary,
+    LEAD(salary) OVER (ORDER BY id) AS next_salary
+FROM employees;
+```
+name    salary   next_salary
+
+Aman    50000    60000
+
+Riya    60000    45000
+
+Karan   45000    70000
+
+Sneha   70000    NULL        ← no next row
+
+---
+
+## NTILE(n) — Divide Rows into Buckets
+
+Divides rows into n equal groups and assigns a bucket number.
+
+```sql
+-- Divide employees into 4 salary quartiles
+SELECT name, salary,
+    NTILE(4) OVER (ORDER BY salary DESC) AS quartile
+FROM employees;
+```
+
+---
+
+## All Window Functions — Quick Reference Table
+
+| Function | What it does |
+|----------|--------------|
+| `ROW_NUMBER()` | Unique number per row, no ties |
+| `RANK()` | Rank with gaps for ties |
+| `DENSE_RANK()` | Rank without gaps for ties |
+| `SUM() OVER` | Running or partitioned sum |
+| `AVG() OVER` | Running or partitioned average |
+| `MIN() OVER` | Min value in partition |
+| `MAX() OVER` | Max value in partition |
+| `LAG()` | Value from previous row |
+| `LEAD()` | Value from next row |
+| `NTILE(n)` | Divide rows into n buckets |
+
+---
+
+## Window Functions vs GROUP BY
+
+| | GROUP BY | Window Function |
+|--|----------|----------------|
+| Collapses rows? | ✅ Yes | ❌ No |
+| Keeps original rows? | ❌ No | ✅ Yes |
+| Can see individual rows? | ❌ No | ✅ Yes |
+| Use with aggregate? | ✅ Yes | ✅ Yes |
+
+---
+
+## 🧠 Memory Tricks
+OVER()         → "this is a window function"
+
+PARTITION BY   → "group by, but don't collapse"
+
+ORDER BY       → "order within the window"
+ROW_NUMBER → always unique (1,2,3,4)
+
+RANK       → gaps on ties (1,1,3,4)
+
+DENSE_RANK → no gaps on ties (1,1,2,3)
+LAG  → look BACK  (previous row)
+
+LEAD → look AHEAD (next row)
+
+---
+
+## ⚡ Quick Reference
+
+```sql
+-- Row number
+SELECT name, ROW_NUMBER() OVER (ORDER BY salary DESC) FROM employees;
+
+-- Rank with gaps
+SELECT name, RANK() OVER (ORDER BY marks DESC) FROM students;
+
+-- Rank without gaps
+SELECT name, DENSE_RANK() OVER (ORDER BY marks DESC) FROM students;
+
+-- Partition sum
+SELECT name, SUM(salary) OVER (PARTITION BY city) FROM employees;
+
+-- Running total
+SELECT name, SUM(salary) OVER (ORDER BY id) FROM employees;
+
+-- Previous row
+SELECT name, LAG(salary) OVER (ORDER BY id) FROM employees;
+
+-- Next row
+SELECT name, LEAD(salary) OVER (ORDER BY id) FROM employees;
+```
+
