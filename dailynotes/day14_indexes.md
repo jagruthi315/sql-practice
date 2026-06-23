@@ -151,3 +151,58 @@ If you often run:
 
 sql
 
+
+SELECT * FROM sales_data
+WHERE customer_id = 101;
+Then creating this index is useful:
+
+sql
+
+
+CREATE INDEX idx_customer_id
+ON sales_data (customer_id);
+When to Use an Index
+Use an index when a column is frequently used for searching, joining, sorting, or grouping - especially on large tables.
+
+Do not create indexes blindly. Always think: "Will this column be searched often enough to justify it?"
+
+Index vs Full Table Scan
+Index	Full Table Scan
+Speed	Faster for targeted lookups	Slower on large tables
+Storage	Needs extra space	No extra space
+Best for	Frequent filters and joins	Small tables or broad reads
+Write operations	Slightly slower	No index maintenance
+🧠 Memory Tricks
+Index = "shortcut to find rows faster"
+
+Used on:
+
+WHERE
+JOIN
+ORDER BY
+GROUP BY
+Trade-off:
+
+faster reading
+slower writing
+Composite index: (col1, col2) -> order matters
+
+⚡ Quick Reference
+sql
+
+
+-- Create index
+CREATE INDEX idx_name
+ON table_name (column_name);
+-- Create composite index
+CREATE INDEX idx_multi
+ON table_name (col1, col2);
+-- Create unique index
+CREATE UNIQUE INDEX idx_unique
+ON table_name (column_name);
+-- Basic query that benefits from index
+SELECT * FROM table_name
+WHERE column_name = 'value';
+-- Drop index
+DROP INDEX idx_name;
+
