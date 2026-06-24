@@ -1,0 +1,6 @@
+Day 15 --> Views
+
+Views are virtual tables created from SQL queries. They do not store data themselves; instead, they display data from one or more underlying tables whenever the view is queried.
+
+Views are useful for simplifying complex queries, improving readability, and controlling access to data.
+
