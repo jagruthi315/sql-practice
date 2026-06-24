@@ -490,15 +490,19 @@ sql
 -- Create index
 CREATE INDEX idx_name
 ON table_name (column_name);
+
 -- Create composite index
 CREATE INDEX idx_multi
 ON table_name (col1, col2);
+
 -- Create unique index
 CREATE UNIQUE INDEX idx_unique
 ON table_name (column_name);
+
 -- Basic query that benefits from index
 SELECT * FROM table_name
 WHERE column_name = 'value';
+
 -- Drop index
 DROP INDEX idx_name;
 
