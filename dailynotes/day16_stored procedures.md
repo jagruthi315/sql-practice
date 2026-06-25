@@ -355,4 +355,258 @@ SELECT total;
 ```
 
 ---
+# IF-ELSE in Stored Procedures
+
+Stored Procedures can contain conditional logic.
+
+```sql
+CREATE PROCEDURE CheckMarks(IN marks INT)
+BEGIN
+
+    IF marks >= 80 THEN
+        SELECT 'Excellent';
+
+    ELSE
+        SELECT 'Average';
+
+    END IF;
+
+END;
+```
+
+Execute:
+
+```sql
+CALL CheckMarks(90);
+```
+
+Output:
+
+```text
+Excellent
+```
+
+---
+
+# Loops in Stored Procedures
+
+Stored Procedures can also use loops.
+
+Example syntax:
+
+```sql
+WHILE condition DO
+    statements;
+END WHILE;
+```
+
+Loops are less common in Data Analyst work but are useful to know.
+
+---
+
+# Stored Procedure vs View
+
+| Feature    | View              | Stored Procedure        |
+| ---------- | ----------------- | ----------------------- |
+| Type       | Virtual Table     | Saved Program           |
+| Contains   | Usually One Query | Multiple SQL Statements |
+| Parameters | No                | Yes                     |
+| Purpose    | Display Data      | Perform Operations      |
+| Execution  | SELECT            | CALL / EXEC             |
+
+## View Example
+
+```sql
+CREATE VIEW TopStudents AS
+SELECT *
+FROM Students
+WHERE marks > 80;
+```
+
+Use:
+
+```sql
+SELECT * FROM TopStudents;
+```
+
+## Procedure Example
+
+```sql
+CREATE PROCEDURE GetTopStudents()
+BEGIN
+    SELECT *
+    FROM Students
+    WHERE marks > 80;
+END;
+```
+
+Use:
+
+```sql
+CALL GetTopStudents();
+```
+
+---
+
+# Stored Procedure vs Function
+
+Many beginners confuse these.
+
+## Function
+
+Returns a single value.
+
+Example:
+
+```sql
+GetTax(10000)
+```
+
+Returns:
+
+```text
+1800
+```
+
+## Stored Procedure
+
+Can:
+
+* Return result sets
+* Insert data
+* Update data
+* Delete data
+* Perform multiple operations
+
+Stored Procedures are generally more powerful.
+
+---
+
+# Common Interview Questions
+
+## What is a Stored Procedure?
+
+A precompiled collection of SQL statements stored in the database that can be executed repeatedly.
+
+## Advantages?
+
+* Reusability
+* Better performance
+* Security
+* Less repeated code
+
+## Can Stored Procedures Accept Parameters?
+
+✅ Yes
+
+Example:
+
+```sql
+CALL GetStudent(5);
+```
+
+## Difference Between Procedure and Function?
+
+### Procedure
+
+* Performs multiple operations
+* Can return result sets
+
+### Function
+
+* Returns a single value
+
+---
+
+# Quick Reference
+
+```sql
+-- Create Procedure
+CREATE PROCEDURE procedure_name()
+BEGIN
+    SQL statements;
+END;
+
+-- Execute Procedure
+CALL procedure_name();
+
+-- Procedure with Parameter
+CREATE PROCEDURE GetStudent(IN student_id INT)
+BEGIN
+    SELECT *
+    FROM Students
+    WHERE id = student_id;
+END;
+
+CALL GetStudent(2);
+```
+
+---
+
+# Memory Tricks
+
+Stored Procedure = Saved Program
+
+View = Saved Query
+
+Function = Returns One Value
+
+Think:
+
+* View → Display Data
+* Procedure → Perform Tasks
+* Function → Return Value
+
+---
+
+# Small Note for DA Learning
+
+For a Data Analyst, you may not create Stored Procedures every day, but you should understand:
+
+* How automated reports are generated
+* How business logic is stored in databases
+* Why analysts sometimes receive data from procedures rather than tables
+* Basic procedure syntax for interviews
+
+Stored Procedures are commonly asked in SQL interviews because they combine SQL knowledge with database concepts such as performance, security, automation, and reusability.
+
+---
+
+# SQL Series Complete 🎉
+
+Congratulations on completing this SQL learning journey.
+
+Topics Covered:
+
+* SELECT
+* WHERE
+* ORDER BY
+* GROUP BY
+* HAVING
+* JOINS
+* Subqueries
+* Window Functions
+* CTEs
+* Indexes
+* Views
+* Stored Procedures
+
+Next Steps for a Data Analyst:
+
+1. Advanced Excel
+2. Power BI
+3. Statistics
+4. Python (Pandas, NumPy)
+5. Data Visualization
+6. SQL Projects
+7. End-to-End Portfolio Projects
+
+Remember:
+
+> SQL helps you get data.
+>
+> Analysis helps you create insights.
+>
+> Business understanding helps you create impact.
+
 
