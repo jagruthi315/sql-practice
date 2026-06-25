@@ -1,0 +1,358 @@
+# Day 16 --> Stored Procedures
+
+Stored Procedures are saved collections of SQL statements stored inside the database. Instead of writing the same SQL queries repeatedly, you can save them once and execute them whenever needed.
+
+Think of a Stored Procedure as a function in programming that lives inside the database.
+
+---
+
+# What is a Stored Procedure?
+
+A Stored Procedure is a pre-written set of SQL statements that can be executed whenever required.
+
+Instead of repeatedly writing:
+
+```sql
+SELECT * FROM Students;
+```
+
+you can create a procedure once and call it whenever needed.
+
+---
+
+# Real-Life Analogy
+
+Imagine every day you perform these tasks:
+
+1. Find all orders
+2. Calculate total sales
+3. Generate a report
+
+Instead of manually doing all three steps every day, you create a button:
+
+```text
+GenerateSalesReport()
+```
+
+Click the button and everything runs automatically.
+
+That's exactly how a Stored Procedure works.
+
+---
+
+# Why Do We Use Stored Procedures?
+
+Stored Procedures are useful because they:
+
+* Reduce repeated code
+* Improve reusability
+* Improve security
+* Can improve performance
+* Allow business logic inside the database
+
+---
+
+# Basic Syntax
+
+```sql
+CREATE PROCEDURE procedure_name()
+BEGIN
+    SQL statements;
+END;
+```
+
+Example:
+
+```sql
+CREATE PROCEDURE GetStudents()
+BEGIN
+    SELECT *
+    FROM Students;
+END;
+```
+
+Execute:
+
+```sql
+CALL GetStudents();
+```
+
+Output:
+
+| id | name  |
+| -- | ----- |
+| 1  | Rahul |
+| 2  | Priya |
+
+---
+
+# Reusability
+
+Without a procedure:
+
+```sql
+SELECT * FROM Students;
+```
+
+You may write the same query repeatedly.
+
+With a procedure:
+
+```sql
+CALL GetStudents();
+```
+
+The SQL is written once and reused whenever needed.
+
+---
+
+# Reduce Repeated Code
+
+Suppose every month you run:
+
+```sql
+SELECT *
+FROM Orders
+WHERE order_date >= '2025-01-01';
+```
+
+Instead of rewriting this query repeatedly, save it inside a procedure.
+
+---
+
+# Performance Benefits
+
+Stored Procedures are compiled and stored by the database.
+
+Because the database already knows the query structure, execution can sometimes be faster.
+
+### Interview Answer
+
+Stored Procedures can improve performance by reducing query parsing and optimization overhead.
+
+---
+
+# Security Benefits
+
+Users can be given permission to execute a procedure without giving direct access to underlying tables.
+
+Example:
+
+```sql
+CALL GetEmployees();
+```
+
+Allowed.
+
+But:
+
+```sql
+SELECT * FROM Employees;
+```
+
+May not be allowed.
+
+This helps protect sensitive data.
+
+---
+
+# Stored Procedure with Parameters
+
+Parameters make procedures much more useful.
+
+Suppose the Students table contains:
+
+| id | name  | marks |
+| -- | ----- | ----- |
+| 1  | Rahul | 85    |
+| 2  | Priya | 70    |
+| 3  | Rohan | 92    |
+
+Create procedure:
+
+```sql
+CREATE PROCEDURE GetStudent(IN student_id INT)
+BEGIN
+    SELECT *
+    FROM Students
+    WHERE id = student_id;
+END;
+```
+
+Execute:
+
+```sql
+CALL GetStudent(2);
+```
+
+Output:
+
+| id | name  | marks |
+| -- | ----- | ----- |
+| 2  | Priya | 70    |
+
+---
+
+# Procedure with Multiple Parameters
+
+```sql
+CREATE PROCEDURE StudentsAboveMarks(IN min_marks INT)
+BEGIN
+    SELECT *
+    FROM Students
+    WHERE marks > min_marks;
+END;
+```
+
+Execute:
+
+```sql
+CALL StudentsAboveMarks(80);
+```
+
+Returns all students scoring above 80 marks.
+
+---
+
+# Using Variables
+
+Stored Procedures can store values inside variables.
+
+Example:
+
+```sql
+CREATE PROCEDURE Demo()
+BEGIN
+    DECLARE total INT;
+
+    SELECT COUNT(*)
+    INTO total
+    FROM Students;
+
+    SELECT total;
+END;
+```
+
+---
+
+# Understanding the Example
+
+## Step 1: Create Variable
+
+```sql
+DECLARE total INT;
+```
+
+Creates a variable named `total`.
+
+Think:
+
+```python
+total = 0
+```
+
+---
+
+## Step 2: Store Query Result
+
+```sql
+SELECT COUNT(*)
+INTO total
+FROM Students;
+```
+
+Suppose Students contains:
+
+| id | name   |
+| -- | ------ |
+| 1  | Rahul  |
+| 2  | Priya  |
+| 3  | Rohan  |
+| 4  | Ananya |
+
+COUNT(*) returns:
+
+```text
+4
+```
+
+The result is stored in:
+
+```text
+total = 4
+```
+
+Think of:
+
+```sql
+INTO total
+```
+
+as:
+
+```python
+total =
+```
+
+---
+
+## Step 3: Display Variable
+
+```sql
+SELECT total;
+```
+
+Output:
+
+```text
+4
+```
+
+---
+
+# Visual Flow
+
+Students Table
+
+```text
+4 Rows
+```
+
+↓
+
+```sql
+SELECT COUNT(*)
+```
+
+↓
+
+```text
+4
+```
+
+↓
+
+```sql
+INTO total
+```
+
+↓
+
+```text
+total = 4
+```
+
+↓
+
+```sql
+SELECT total;
+```
+
+↓
+
+```text
+4
+```
+
+---
+
